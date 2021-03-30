@@ -1,29 +1,18 @@
-import matplotlib.pyplot as plt
-import BellsState as bs
-import QuantumTeleportation as qt
-import math
-import Utils
+import Test
 
-from qiskit.visualization import plot_histogram, plot_bloch_multivector
-from qiskit import IBMQ, Aer, transpile, assemble
+lineSeparator = '\n====================================================\n'
 
-def bellsStateTest():
-    qc = bs.getBellsState1([1,0], [1,0])
-    stateVector = Utils.getStateVector(qc)
-    Utils.printStateVector(stateVector, 4)
-    qc.draw(output='mpl')
-    plt.show()
-
-def teleportationState():
-    qtc = qt.teleportateQuantumState([0.5, math.sqrt(1-0.25)])
-    teleportationStateVector = Utils.getStateVector(qtc)
-    qtc.draw(output='mpl')
-    
-    qasm_sim = Aer.get_backend('qasm_simulator')
-    qobj = assemble(qtc)
-    counts = qasm_sim.run(qobj).result().get_counts()
-    plot_histogram(counts)
-
-    plt.show()
-
-teleportationState()
+while(True):
+    inputValue = input("\
+1) Get Bell's state\n\
+2) Quantum Teleportation\n\
+3) Exit\n\
+your input: "
+);
+    if inputValue == '1':
+        Test.bellsStateTest()
+    elif inputValue == '2':
+        Test.quantumTeleportationTest()
+    elif inputValue == '3':
+        break
+    print(lineSeparator)
