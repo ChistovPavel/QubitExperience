@@ -3,6 +3,7 @@ from qiskit import QuantumCircuit, QuantumRegister, ClassicalRegister
 import BellsState
 
 def teleportateQuantumState(targetState):
+
     qr = QuantumRegister(3)
     cr1 = ClassicalRegister(1)
     cr2 = ClassicalRegister(1)
@@ -22,6 +23,6 @@ def teleportateQuantumState(targetState):
     teleportationCircuit.z(2).c_if(cr1, 1)
     teleportationCircuit.x(2).c_if(cr2, 1)
 
-    #teleportationCircuit.measure(2,2)
+    teleportationCircuit.measure(2,2)
 
     return teleportationCircuit

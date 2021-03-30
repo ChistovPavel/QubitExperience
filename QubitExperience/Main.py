@@ -15,14 +15,12 @@ def bellsStateTest():
     plt.show()
 
 def teleportationState():
-    qtc = qt.teleportateQuantumState([0.1, math.sqrt(1-0.01)])
+    qtc = qt.teleportateQuantumState([0.5, math.sqrt(1-0.25)])
     teleportationStateVector = Utils.getStateVector(qtc)
-    Utils.printStateVector(teleportationStateVector, 4)
     qtc.draw(output='mpl')
     
     qasm_sim = Aer.get_backend('qasm_simulator')
-    t_qc = transpile(qtc, qasm_sim)
-    qobj = assemble(t_qc)
+    qobj = assemble(qtc)
     counts = qasm_sim.run(qobj).result().get_counts()
     plot_histogram(counts)
 
