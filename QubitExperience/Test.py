@@ -3,9 +3,16 @@ import BellsState as bs
 import QuantumTeleportation as qt
 import math
 import Utils
+import Grover
 
 from qiskit.visualization import plot_histogram, plot_bloch_multivector
 from qiskit import IBMQ, Aer, transpile, assemble
+
+def plotHistogram(circuit):
+    qasm_sim = Aer.get_backend('qasm_simulator')
+    qobj = assemble(circuit)
+    counts = qasm_sim.run(qobj).result().get_counts()
+    plot_histogram(counts)
 
 def bellsStateTest():
     qc = bs.getBellsState1([1,0], [1,0])
@@ -18,10 +25,11 @@ def quantumTeleportationTest():
     qtc = qt.teleportateQuantumState([0.5, math.sqrt(1-0.25)])
     teleportationStateVector = Utils.getStateVector(qtc)
     qtc.draw(output='mpl')
-    
-    qasm_sim = Aer.get_backend('qasm_simulator')
-    qobj = assemble(qtc)
-    counts = qasm_sim.run(qobj).result().get_counts()
-    plot_histogram(counts)
+    plotHistogram(qtc)
+    plt.show()
 
+def groverTest():
+    grover_circuit = Grover.getGroverCircuit()
+    grover_circuit.draw(output='mpl')
+    plotHistogram(grover_circuit)
     plt.show()

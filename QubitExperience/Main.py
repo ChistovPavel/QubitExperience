@@ -6,7 +6,8 @@ while(True):
     inputValue = input("\
 1) Get Bell's state\n\
 2) Quantum Teleportation\n\
-3) Exit\n\
+3) Grover\n\
+4) Exit\n\
 your input: "
 );
     if inputValue == '1':
@@ -14,5 +15,7 @@ your input: "
     elif inputValue == '2':
         Test.quantumTeleportationTest()
     elif inputValue == '3':
+        Test.groverTest()
+    elif inputValue == '4':
         break
     print(lineSeparator)
